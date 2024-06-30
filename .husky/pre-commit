@@ -1,1 +1,5 @@
+# Run lint before commit
 pnpm lint
+
+# Run lint before commit
+pnpm build
