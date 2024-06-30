@@ -55,7 +55,7 @@ jobs:
           STAGE=staging npx tsx src/app/cli/migrator.js
 
       - name: Deploy to AWS with SST
-        run: pnpm run deployStaging
+        run: pnpm run deploy:stage
 
       - name: Clean Up AWS Profile
         run: |

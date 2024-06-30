@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - 'main'
+      - 'master'
     types:
       - closed
   # workflow_dispatch:
@@ -49,7 +50,7 @@ jobs:
           pnpm run migrate
 
       - name: Deploy to AWS with SST
-        run: pnpm run deploy
+        run: pnpm run deploy:prod
 
       - name: Clean Up AWS Profile
         run: |
