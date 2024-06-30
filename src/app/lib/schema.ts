@@ -1,11 +1,4 @@
-import validator from 'validator';
-import {
-  serial,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core';
+import { serial, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 
 export const LeadTable = pgTable('leads', {

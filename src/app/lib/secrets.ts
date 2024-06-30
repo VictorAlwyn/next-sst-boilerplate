@@ -20,9 +20,9 @@ export default async function getSecret(secretName: string) {
     const response = await client.send(command);
     if (response.Parameter && response.Parameter.Value) {
       return response.Parameter.Value;
-    } else {
-      return null;
     }
+
+    return null;
   } catch (error) {
     return null;
   }

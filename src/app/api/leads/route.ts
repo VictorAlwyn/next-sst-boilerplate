@@ -13,10 +13,7 @@ export const revalidate = 0;
 export async function POST(request: Request) {
   const contentType = await request.headers.get('content-type');
   if (contentType !== 'application/json') {
-    return NextResponse.json(
-      { message: 'Invalid request' },
-      { status: 415 }
-    );
+    return NextResponse.json({ message: 'Invalid request' }, { status: 415 });
   }
   const data = await request.json();
   let parsedData = {};
@@ -25,15 +22,9 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof zod.ZodError) {
       const validationError = fromZodError(error);
-      return NextResponse.json(
-        { errorList: validationError },
-        { status: 400 }
-      );
+      return NextResponse.json({ errorList: validationError }, { status: 400 });
     }
-    return NextResponse.json(
-      { message: 'Some Server Error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: 'Some Server Error' }, { status: 500 });
   }
   const { email } = parsedData as { email: string };
   if (!email) {
@@ -43,11 +34,11 @@ export async function POST(request: Request) {
     );
   }
   const dbNow = await db.dbNow();
-  const leadResult = await db.addLead({ email: email });
+  const leadResult = await db.addLead({ email });
 
   const resultData = {
-    leadResult: leadResult,
-    dbNow: dbNow,
+    leadResult,
+    dbNow,
   };
   return NextResponse.json(resultData, { status: 201 });
 }
