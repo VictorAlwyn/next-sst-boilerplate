@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import LeadCaptureForm from './form';
+
 export default function HeroLandingPage() {
   return (
     <section className="bg-white dark:bg-gray-900 rounded mx-8 my-4 px-4">

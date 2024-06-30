@@ -11,7 +11,8 @@
     "migrate": "npx tsx src/app/cli/migrator.ts",
     "deploy:stage": "sst deploy --stage staging",
     "deploy:prod": "sst deploy --stage production",
-    "prepare": "husky"
+    "prepare": "husky && husky install",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
     "@aws-sdk/client-ssm": "^3.606.0",
@@ -26,22 +27,36 @@
     "zod-validation-error": "^3.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/validator": "^13.12.0",
     "@types/ws": "^8.5.10",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
     "aws-cdk-lib": "2.142.1",
     "aws-sdk": "^2.1651.0",
     "constructs": "10.3.0",
     "drizzle-kit": "^0.22.8",
     "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "14.2.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-unused-imports": "^4.0.0",
     "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
     "postcss": "^8.4.39",
+    "prettier": "3.3.2",
     "sst": "^2.43.3",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.2",
     "ws": "^8.17.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }

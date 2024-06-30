@@ -14,6 +14,7 @@ export async function dbClient(useSQLOnly: boolean) {
 }
 
 export async function dbNow() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sql: any = await dbClient(true);
   const dbResult = await sql`SELECT NOW()`;
   if (dbResult.length === 1) {
@@ -22,14 +23,16 @@ export async function dbNow() {
   return null;
 }
 
-export async function addLead({ email }: any) {
+export async function addLead({ email }: { email: string }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db: any = await dbClient(false);
   const dbResult = await db
     .insert(schema.LeadTable)
-    .values({ email: email })
+    .values({ email })
     .returning({ timestamp: schema.LeadTable.createdAt });
   if (dbResult.length === 1) {
     return dbResult[0].timestamp;
   }
-  return;
+
+  return null;
 }

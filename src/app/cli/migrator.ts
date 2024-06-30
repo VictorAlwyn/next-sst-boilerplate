@@ -1,11 +1,11 @@
+/* eslint-disable no-console */
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import { drizzle } from 'drizzle-orm/neon-serverless';
 import { Pool, neonConfig } from '@neondatabase/serverless';
+import ws from 'ws';
 
 import * as schema from '../lib/schema';
 import getSecret from '../lib/secrets';
-
-import ws from 'ws';
 
 async function performMigration() {
   const dbUrl = await getSecret('DATABASE_URL');
@@ -42,7 +42,7 @@ if (require.main === module) {
   console.log('Running migrations');
 
   performMigration()
-    .then((val) => {
+    .then(() => {
       console.log('Migration performed');
       process.exit(0);
     })

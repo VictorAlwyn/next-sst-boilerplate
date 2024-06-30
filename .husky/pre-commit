@@ -2,4 +2,7 @@
 pnpm lint
 
 # Run lint before commit
+pnpm buildnpx lint-staged
+
+# Run lint before commit
 pnpm build

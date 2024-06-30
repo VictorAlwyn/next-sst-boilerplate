@@ -1,20 +1,18 @@
 'use client';
-import { useState, useRef } from 'react';
+
+import { useState, useRef, FormEvent } from 'react';
 
 export default function LeadCaptureForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const formRef = useRef(null);
 
-  const handleForm = async (event: {
-    preventDefault: () => void;
-    target: HTMLFormElement | undefined;
-  }) => {
+  const handleForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.target as HTMLFormElement);
 
-    const dataObject = Object.fromEntries(formData);
+    const dataObject = Object.fromEntries(formData.entries());
 
     const jsonData = JSON.stringify(dataObject);
 
@@ -45,14 +43,9 @@ export default function LeadCaptureForm() {
       <form
         ref={formRef}
         className="space-y-3"
-        onSubmit={(event) => handleForm(event as any)}
+        onSubmit={(event: FormEvent<HTMLFormElement>) => handleForm(event)}
       >
-        <input
-          type="email"
-          required
-          name="email"
-          placeholder="Your Email"
-        />
+        <input type="email" required name="email" placeholder="Your Email" />
         <button disabled={loading} className="btn-join" type="submit">
           {btnLabel}
         </button>
