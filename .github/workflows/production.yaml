@@ -3,8 +3,7 @@ name: Deploy Production via SST to AWS
 on:
   pull_request:
     branches:
-      - 'main'
-      - 'master'
+      - production
     types:
       - closed
   # workflow_dispatch:
