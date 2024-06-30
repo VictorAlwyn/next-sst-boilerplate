@@ -6,7 +6,10 @@ export default function LeadCaptureForm() {
   const [message, setMessage] = useState('');
   const formRef = useRef(null);
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: {
+    preventDefault: () => void;
+    target: HTMLFormElement | undefined;
+  }) => {
     event.preventDefault();
     setLoading(true);
     const formData = new FormData(event.target);
@@ -25,10 +28,11 @@ export default function LeadCaptureForm() {
 
     // fetch
     const response = await fetch('/api/leads/', options);
-    // const responseData = await response.json()
     if (response.ok) {
       setMessage('Thank you for joining');
-      formRef.current.reset();
+      if (formRef.current) {
+        (formRef.current as HTMLFormElement).reset();
+      }
     } else {
       setMessage('Error with your request');
     }
@@ -38,7 +42,11 @@ export default function LeadCaptureForm() {
   return (
     <>
       {message && <div>{message}</div>}
-      <form ref={formRef} className="space-y-3" onSubmit={handleForm}>
+      <form
+        ref={formRef}
+        className="space-y-3"
+        onSubmit={(event) => handleForm(event as any)}
+      >
         <input
           type="email"
           required
