@@ -1,16 +1,20 @@
-import { SSTConfig } from "sst";
-import { NextjsSite } from "sst/constructs";
+import { SSTConfig } from 'sst';
+import { Config, NextjsSite } from 'sst/constructs';
 
 export default {
   config(_input) {
     return {
-      name: "leads-landing",
-      region: "us-east-1",
+      name: 'leads-landing',
+      region: 'us-east-1',
     };
   },
   stacks(app) {
     app.stack(function Site({ stack }) {
-      const site = new NextjsSite(stack, "site");
+      const SECRET_VAL = new Config.Secret(stack, 'SECRET_VAL');
+      const DATABASE_URL = new Config.Secret(stack, 'DATABASE_URL');
+      const site = new NextjsSite(stack, 'site', {
+        bind: [DATABASE_URL, SECRET_VAL],
+      });
 
       stack.addOutputs({
         SiteUrl: site.url,
