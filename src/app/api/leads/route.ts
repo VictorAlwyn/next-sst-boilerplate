@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-  const { email } = parsedData;
+  const { email } = parsedData as { email: string };
   if (!email) {
     return NextResponse.json(
       { message: 'A valid email is required' },
